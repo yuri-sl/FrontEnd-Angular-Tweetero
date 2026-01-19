@@ -1,0 +1,14 @@
+<div class="container">
+    <h1>Tweetero</h1>
+    <div class="form-container">
+        <form [formGroup]="cadastrarUsuarioForm" (ngSubmit)="onSubmit()">
+            <label>Nome de usuário:</label>
+            <input type="text" formControlName="nome">
+            <label>Avatar:</label>
+            <input type="text" formControlName="avatar">
+            <button type="submit">Criar novo usuário</button>
+            <button type="reset">Limpar campos</button>
+        </form>
+    </div>
+</div>
+<p-toast></p-toast>
