@@ -9,12 +9,19 @@ export class ApiService{
 
     constructor(private http:HttpClient){}
 
-
-    post<T>(path:String,body:createUserRequest):Observable<T>{
+    private buildUrl(path: string): string {
+        const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+        return `${this.baseUrl}${normalizedPath}`;
+    }
+    post<T>(path:String,body:any):Observable<T>{
         return this.http.post<T>(this.baseUrl+path,body)
     };
     get<T>(path:String):Observable<T>{
         return this.http.get<T>(this.baseUrl+path);
     }
+  getPathParam<T>(path: string, parameter: string): Observable<T> {
+    const safeParam = encodeURIComponent(parameter);
+    return this.http.get<T>(`${this.buildUrl(path)}/${safeParam}`);
+  }
     
 }

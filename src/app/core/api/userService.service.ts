@@ -12,10 +12,13 @@ export class UserService{
 
 
     createUserRequest(createUserDTO: createUserRequest):Observable<createUserResponse>{
-        return this.api.post<createUserResponse>('/users',createUserDTO);
+        return this.api.post<createUserResponse>('users',createUserDTO);
     }
     getHealth():Observable<HealthDTO>{
         return this.api.get<HealthDTO>('/users');
+    }
+    getUserByUsername(username:string):Observable<createUserResponse>{
+        return this.api.getPathParam<createUserResponse>('users',username);
     }
     
 
