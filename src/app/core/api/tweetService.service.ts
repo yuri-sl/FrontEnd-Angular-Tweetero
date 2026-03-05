@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ApiService } from "./api.service";
 import { Observable } from "rxjs";
-import { CreateTweetDTO } from "../../dto/tweet.dto";
+import { CreateTweetDTO, GetTweetDTO } from "../../dto/tweet.dto";
 
 @Injectable({providedIn: 'root'})
 export class TweetService{
@@ -12,10 +12,10 @@ export class TweetService{
     }
 
     public getAllTweets():Observable<any>{
-        return this.api.get('tweets');
+        return this.api.get<GetTweetDTO[]>('tweets');
     }
 
     public getAllTweetsFromUser(userId:string):Observable<any>{
-        return this.api.get<any>('tweets/user/'+userId)
+        return this.api.get<GetTweetDTO[]>('tweets/user/'+userId)
     }
 }

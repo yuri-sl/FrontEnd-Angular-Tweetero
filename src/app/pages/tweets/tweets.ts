@@ -8,7 +8,7 @@ import { UserService } from '../../core/api/userService.service';
 import { SessionService } from '../../core/api/session.service';
 import { User } from '../../interface/user';
 import { TweetService } from '../../core/api/tweetService.service';
-import { CreateTweetDTO } from '../../dto/tweet.dto';
+import { CreateTweetDTO, GetTweetDTO } from '../../dto/tweet.dto';
 
 
   type CreateTweetForm = {
@@ -27,7 +27,7 @@ import { CreateTweetDTO } from '../../dto/tweet.dto';
 export class Tweets implements OnInit {
   username = '';
   savedUser?: User;
-  listaTweets: any[] = [];
+  listaTweets: GetTweetDTO[] = [];
 
 
 

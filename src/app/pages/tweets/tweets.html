@@ -1,7 +1,24 @@
 <p-toast position="top-right"></p-toast>
+
+<div class="feed-wrapper">
+    <div class="feed">
+        @for (item of listaTweets; track $index) {
+            <article class="tweet">
+                <img [src]="item.user.avatar" class="avatar" alt="avatar">
+                <div class="tweet-content">
+                    <header class="tweet-header">
+                        <h2 class="username">{{item.user.username}}</h2>
+                    </header>
+                    <p class="tweet-text">{{item.text}}</p>
+                </div>
+            </article>
+        }
+    </div>
+</div>
 <div class="flex flex-row">
+    <h1>Fazer uma publicação</h1>
     <form [formGroup]="postNewTweetForm" (ngSubmit)="postarTweet()">
-        <input type="text" formControlName="text">
+        <input class="" type="text" formControlName="text">
         <button type="submit" icon="pi pi-send"> Enviar </button>
     </form>
 
