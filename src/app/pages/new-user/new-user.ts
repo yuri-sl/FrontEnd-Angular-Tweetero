@@ -19,6 +19,8 @@ import { SessionService } from '../../core/api/session.service';
 })
 export class NewUser implements OnInit {
   cadastrarUsuarioForm!: FormGroup;
+  fazerLoginForm!:FormGroup;
+  fazerLogin: boolean = true;
 
   constructor(private fb: FormBuilder,
       private userService: UserService,
@@ -31,6 +33,9 @@ export class NewUser implements OnInit {
       username: ['',Validators.required],
       avatar: ['',Validators.required]
     });
+    this.fazerLoginForm = this.fb.group({
+      nome:['',Validators.required]
+    })
          
   }
 
@@ -109,5 +114,9 @@ export class NewUser implements OnInit {
   }
   clearFormulario(){
     this.cadastrarUsuarioForm.reset();
+  }
+
+  alternarLoginCadastro(){
+    this.fazerLogin = !this.fazerLogin;
   }
 }

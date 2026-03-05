@@ -8,10 +8,15 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 
-<main class="main">
-    <p-toast position="top-right"></p-toast>
-    <router-outlet></router-outlet>
-</main>
+<p-toast position="top-right"></p-toast>
+<header>
+    <div class="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-6 shadow-lg w-full">
+        <div class="text-3x1 font-bold text-center">
+            <h1>Tweetero Angular</h1>
+        </div>
+    </div>
+</header>
+
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
@@ -21,5 +26,4 @@
 <!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
-
-<router-outlet />
+<router-outlet></router-outlet>

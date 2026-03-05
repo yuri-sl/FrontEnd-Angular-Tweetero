@@ -1,13 +1,35 @@
 <div class="container">
     <h1>Tweetero</h1>
     <div class="form-container">
-        <form [formGroup]="cadastrarUsuarioForm" (ngSubmit)="onSubmit()">
-            <label>Nome de usuário:</label>
-            <input type="text" formControlName="username">
-            <label>Avatar:</label>
-            <input type="text" formControlName="avatar">
-            <button type="submit">Criar novo usuário</button>
-            <button type="reset">Limpar campos</button>
-        </form>
+        @if (fazerLogin) {
+            <form [formGroup]="cadastrarUsuarioForm" (ngSubmit)="onSubmit()"
+              class="w-full max-w-md mx-auto rounded-2xl border border-surface-200 bg-surface-0 p-6 shadow-sm
+         dark:border-surface-700 dark:bg-surface-900">
+                <label>Nome de usuário:</label>
+                <input type="text" formControlName="username" class="border-solid border-black"
+                placeholder="joao_123">
+                <button type="button" (click)="alternarLoginCadastro()">
+                    Criar uma conta
+                </button>
+                <div class="flex flex-row">
+                    <button type="submit">Entrar</button>
+                    <button type="reset">Limpar campos</button>
+                </div>
+            </form>
+
+        }
+        @else {
+            <form [formGroup]="cadastrarUsuarioForm" (ngSubmit)="onSubmit()">
+                <label>Nome de usuário:</label>
+                <input type="text" formControlName="username">
+                <label>Avatar:</label>
+                <input type="text" formControlName="avatar">
+                <button type="button" (click)="alternarLoginCadastro()">
+                    Já tenho uma conta
+                </button>
+                <button type="submit">Criar novo usuário</button>
+                <button type="reset">Limpar campos</button>
+            </form>
+        }
     </div>
 </div>
