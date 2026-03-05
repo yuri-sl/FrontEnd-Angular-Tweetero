@@ -13,12 +13,14 @@
                 <label>Nome de usuário:</label>
                 <input type="text" formControlName="username" class="border border-solid rounded-md p-2 border-black"
                 placeholder="joao_123">
+                <label>Senha:</label>
+                <input type="password" class="border border-solid rounded-md p-2 border-black" placeholder="Insira sua senha">
                 <div class="w-auto flex flex-row gap-8px place-content-between">
                     <p-button class="text-red-500 font-sans hover:text-red-800 hover:font-bold transition-colors duration-200" type="reset" label="Limpar Campos" variant="text" severity="danger" />
                     <p-button class="text-red-500 font-sans hover:text-red-800 hover:font-bold transition-colors duration-200" (click)="alternarLoginCadastro()" type="button" label="Criar conta" variant="text" severity="danger" />
                 </div>
                 <p-button label="Entrar" 
-                class="bg-green-300 text-white font-sans text-2xl hover:bg-green-600 hover:font-bold hover:cursor-pointer transition-colors duration-200 w-auto h-auto p-4 flex items-center justify-center" 
+                class="bg-blue-300 text-white font-sans text-2xl hover:bg-blue-600 hover:font-bold hover:cursor-pointer transition-colors duration-200 w-auto h-auto p-4 flex items-center justify-center" 
                 type="submit" ></p-button>
             </form>
 
@@ -30,12 +32,14 @@
                 placeholder="joao_123">
                 <label>Avatar:</label>
                 <input type="text" placeholder="Insira o URL da sua imagem de perfil" formControlName="avatar" class="border border-solid border-black rounded-md p-2">
+                <label>Senha:</label>
+                <input type="password" class="border border-solid rounded-md p-2 border-black" placeholder="Insira sua senha">
                 <div class="w-auto flex flex-row gap-8px place-content-between">
                     <p-button class="text-red-500 font-sans hover:text-red-800 hover:font-bold transition-colors duration-200" type="reset" label="Limpar Campos" variant="text" severity="danger" />
                     <p-button class="text-red-500 font-sans hover:text-red-800 hover:font-bold transition-colors duration-200" (click)="alternarLoginCadastro()" type="button" label="Já tenho conta" variant="text" severity="danger" />
                 </div>
                 <p-button label="Criar conta" 
-                class="bg-green-300 text-white font-sans text-2xl hover:bg-green-600 hover:font-bold hover:cursor-pointer transition-colors duration-200 w-auto h-auto p-4 flex items-center justify-center" 
+                class="bg-blue-300 text-white font-sans text-2xl hover:bg-blue-600 hover:font-bold hover:cursor-pointer transition-colors duration-200 w-auto h-auto p-4 flex items-center justify-center" 
                 type="submit" ></p-button>
             </form>
         }
