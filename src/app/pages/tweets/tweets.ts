@@ -9,7 +9,7 @@ import { SessionService } from '../../core/api/session.service';
 import { User } from '../../interface/user';
 import { TweetService } from '../../core/api/tweetService.service';
 import { CreateTweetDTO, GetTweetDTO } from '../../dto/tweet.dto';
-
+import { Router } from '@angular/router';
 
   type CreateTweetForm = {
     userId: FormControl<bigint|null>;
@@ -41,7 +41,8 @@ export class Tweets implements OnInit {
     private messageService: MessageService,
     private sessionService: SessionService,
     private tweetService: TweetService,
-    @Inject(PLATFORM_ID) private platformId: object
+    @Inject(PLATFORM_ID) private platformId: object,
+    private router:Router
   ) {
   }
 
@@ -159,5 +160,8 @@ export class Tweets implements OnInit {
       error:(err) => console.error(err)
     })
 
+  }
+  redirecionarPerfil(userId:bigint){
+    this.router.navigate(['user/profile',userId])
   }
 }

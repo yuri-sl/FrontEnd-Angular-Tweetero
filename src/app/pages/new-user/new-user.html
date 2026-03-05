@@ -1,34 +1,42 @@
-<div class="container">
-    <h1>Tweetero</h1>
-    <div class="form-container">
+<div class="bg-gradient-to-r from-blue-200 to-blue-400 w-screen flex items-center justify-center h-screen">
+    <div class="bg-white rounded-xl p-10 w-125  shadow-2xl">
+        <div class="flex items-center justify-center pb-8">
+            <img
+                src="https://drive.google.com/thumbnail?id=1H8gyTmXRY5g4lts_I6jKclpQDjNEMS4w&sz=w512"
+                alt="chirp-logo"
+                class="w-12 h-12 rounded-full object-cover"
+            />
+            <h1 class="flex justify-center text-2xl font-bold text-blue-800">Tweetero</h1>
+        </div>
         @if (fazerLogin) {
-            <form [formGroup]="cadastrarUsuarioForm" (ngSubmit)="onSubmit()"
-              class="w-full max-w-md mx-auto rounded-2xl border border-surface-200 bg-surface-0 p-6 shadow-sm
-         dark:border-surface-700 dark:bg-surface-900">
+            <form [formGroup]="cadastrarUsuarioForm" (ngSubmit)="onSubmit()">
                 <label>Nome de usuário:</label>
-                <input type="text" formControlName="username" class="border-solid border-black"
+                <input type="text" formControlName="username" class="border border-solid rounded-md p-2 border-black"
                 placeholder="joao_123">
-                <button type="button" (click)="alternarLoginCadastro()">
-                    Criar uma conta
-                </button>
-                <div class="flex flex-row">
-                    <button type="submit">Entrar</button>
-                    <button type="reset">Limpar campos</button>
+                <div class="w-auto flex flex-row gap-8px place-content-between">
+                    <p-button class="text-red-500 font-sans hover:text-red-800 hover:font-bold transition-colors duration-200" type="reset" label="Limpar Campos" variant="text" severity="danger" />
+                    <p-button class="text-red-500 font-sans hover:text-red-800 hover:font-bold transition-colors duration-200" (click)="alternarLoginCadastro()" type="button" label="Criar conta" variant="text" severity="danger" />
                 </div>
+                <p-button label="Entrar" 
+                class="bg-green-300 text-white font-sans text-2xl hover:bg-green-600 hover:font-bold hover:cursor-pointer transition-colors duration-200 w-auto h-auto p-4 flex items-center justify-center" 
+                type="submit" ></p-button>
             </form>
 
         }
         @else {
             <form [formGroup]="cadastrarUsuarioForm" (ngSubmit)="onSubmit()">
                 <label>Nome de usuário:</label>
-                <input type="text" formControlName="username">
+                <input type="text" formControlName="username" class="border border-solid rounded-md p-2 border-black"
+                placeholder="joao_123">
                 <label>Avatar:</label>
-                <input type="text" formControlName="avatar">
-                <button type="button" (click)="alternarLoginCadastro()">
-                    Já tenho uma conta
-                </button>
-                <button type="submit">Criar novo usuário</button>
-                <button type="reset">Limpar campos</button>
+                <input type="text" placeholder="Insira o URL da sua imagem de perfil" formControlName="avatar" class="border border-solid border-black rounded-md p-2">
+                <div class="w-auto flex flex-row gap-8px place-content-between">
+                    <p-button class="text-red-500 font-sans hover:text-red-800 hover:font-bold transition-colors duration-200" type="reset" label="Limpar Campos" variant="text" severity="danger" />
+                    <p-button class="text-red-500 font-sans hover:text-red-800 hover:font-bold transition-colors duration-200" (click)="alternarLoginCadastro()" type="button" label="Já tenho conta" variant="text" severity="danger" />
+                </div>
+                <p-button label="Criar conta" 
+                class="bg-green-300 text-white font-sans text-2xl hover:bg-green-600 hover:font-bold hover:cursor-pointer transition-colors duration-200 w-auto h-auto p-4 flex items-center justify-center" 
+                type="submit" ></p-button>
             </form>
         }
     </div>

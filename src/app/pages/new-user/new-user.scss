@@ -3,6 +3,7 @@
     margin: 50px;
     justify-content: center;
 }
+
 .form-container{
     padding: 50px;
     border: 2px solid #dadadd;
@@ -32,4 +33,7 @@ form{
         transition: 0.6s;
         cursor: pointer;
     }
+}
+h1,h2,label,.p-button{
+    font-family: 'Times New Roman', Times, serif;
 }

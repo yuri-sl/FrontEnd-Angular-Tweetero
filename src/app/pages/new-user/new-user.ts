@@ -9,11 +9,12 @@ import { TweetService } from '../../core/api/tweetService.service';
 import { createUserRequest, createUserResponse } from '../../dto/user.dto';
 import {Router} from '@angular/router';
 import { SessionService } from '../../core/api/session.service';
+import {ButtonModule} from 'primeng/button'
 
 
 @Component({
   selector: 'app-new-user',
-  imports: [ReactiveFormsModule, ToastModule],
+  imports: [ReactiveFormsModule, ToastModule,ButtonModule],
   templateUrl: './new-user.html',
   styleUrl: './new-user.scss'
 })
