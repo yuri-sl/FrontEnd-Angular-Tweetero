@@ -1,4 +1,4 @@
 export interface CreateTweetDTO{
-    userId: number;
+    userId: bigint;
     text: string;
 }

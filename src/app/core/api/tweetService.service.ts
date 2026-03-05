@@ -7,11 +7,15 @@ import { CreateTweetDTO } from "../../dto/tweet.dto";
 export class TweetService{
     constructor(private api:ApiService){}
 
-    public postNewTweet(body:CreateTweetDTO):Observable<any>{
-        return this.api.post<CreateTweetDTO>('/tweet',body);
+    public postNewTweet(body:CreateTweetDTO):Observable<CreateTweetDTO>{
+        return this.api.post<CreateTweetDTO>('tweets',body);
     }
 
     public getAllTweets():Observable<any>{
-        return this.api.get('/tweet');
+        return this.api.get('tweets');
+    }
+
+    public getAllTweetsFromUser(userId:string):Observable<any>{
+        return this.api.get<any>('tweets/user/'+userId)
     }
 }

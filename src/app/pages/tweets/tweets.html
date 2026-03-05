@@ -1,2 +1,8 @@
 <p-toast position="top-right"></p-toast>
+<div class="flex flex-row">
+    <form [formGroup]="postNewTweetForm" (ngSubmit)="postarTweet()">
+        <input type="text" formControlName="text">
+        <button type="submit" icon="pi pi-send"> Enviar </button>
+    </form>
 
+</div>

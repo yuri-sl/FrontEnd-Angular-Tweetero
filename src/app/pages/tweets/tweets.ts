@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { isPlatformBrowser } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -7,6 +7,14 @@ import { MessageService } from 'primeng/api';
 import { UserService } from '../../core/api/userService.service';
 import { SessionService } from '../../core/api/session.service';
 import { User } from '../../interface/user';
+import { TweetService } from '../../core/api/tweetService.service';
+import { CreateTweetDTO } from '../../dto/tweet.dto';
+
+
+  type CreateTweetForm = {
+    userId: FormControl<bigint|null>;
+    text: FormControl<string>;
+  };
 
 @Component({
   selector: 'app-tweets',
@@ -17,21 +25,24 @@ import { User } from '../../interface/user';
   providers: [MessageService]
 })
 export class Tweets implements OnInit {
-  postNewTweetForm: FormGroup;
   username = '';
   savedUser?: User;
+  listaTweets: any[] = [];
 
+
+
+  postNewTweetForm = new FormGroup<CreateTweetForm>({
+    userId: new FormControl<bigint|null>(null,{nonNullable:true,validators:[Validators.required]}),
+    text: new FormControl<string>('',{nonNullable:true, validators: [Validators.required]})
+  })
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
     private messageService: MessageService,
     private sessionService: SessionService,
+    private tweetService: TweetService,
     @Inject(PLATFORM_ID) private platformId: object
   ) {
-    this.postNewTweetForm = this.fb.group({
-      userId: ['', Validators.required],
-      text: ['', [Validators.required]]
-    });
   }
 
   ngOnInit(): void {
@@ -40,6 +51,8 @@ export class Tweets implements OnInit {
     if (this.username) {
       this.carregarInformacoesUsuario();
     }
+    this.buscarTodosTweets();
+
   }
 
   fetchUsername(): void {
@@ -98,5 +111,53 @@ export class Tweets implements OnInit {
         });
       }
     });
+  }
+  buscarTodosTweets(){
+    this.tweetService.getAllTweets().subscribe({
+      next:(res) => {
+        console.log(res)
+        this.listaTweets = res;
+        this.messageService.add({
+          severity:'Success',
+          summary:'Sucesso',
+          detail:'Sucesso em buscar mensagens',
+          life:5000
+        })
+      },
+      error:(err) => {
+        console.error(err);
+          this.messageService.add({
+          severity:'error',
+          summary:'Erro',
+          detail:'Erro em buscar mensagens',
+          life:5000
+        })
+      }
+    })
+
+  }
+
+  postarTweet():void{
+
+    if(this.postNewTweetForm.invalid){
+      return
+    }
+    //Extrair o raw value
+    const raw = this.postNewTweetForm.getRawValue();
+    
+    if(raw.userId == null){
+      return
+    }
+
+    //Montar DTO
+    const dto:CreateTweetDTO = {
+      userId: raw.userId,
+      text: raw.text
+    }
+    this.tweetService.postNewTweet(dto).subscribe({
+      next:(res) => console.log(res),
+      error:(err) => console.error(err)
+    })
+
   }
 }
