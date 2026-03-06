@@ -10,6 +10,8 @@ import { User } from '../../interface/user';
 import { TweetService } from '../../core/api/tweetService.service';
 import { CreateTweetDTO, GetTweetDTO } from '../../dto/tweet.dto';
 import { Router } from '@angular/router';
+import { Button } from "primeng/button";
+import { ButtonModule } from 'primeng/button';
 
   type CreateTweetForm = {
     userId: FormControl<bigint|null>;
@@ -19,7 +21,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-tweets',
   standalone: true,
-  imports: [ReactiveFormsModule, ToastModule],
+  imports: [ReactiveFormsModule, ToastModule, ButtonModule],
   templateUrl: './tweets.html',
   styleUrl: './tweets.scss',
   providers: [MessageService]
