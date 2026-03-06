@@ -145,23 +145,24 @@ export class Tweets implements OnInit {
     if(this.postNewTweetForm.invalid){
       return
     }
-    //Extrair o raw value
+    //1. Extrair os raw values do formulario
     const raw = this.postNewTweetForm.getRawValue();
     
     if(raw.userId == null){
       return
     }
 
-    //Montar DTO
+    //2. => Montar DTO pegando os valores do raw 
     const dto:CreateTweetDTO = {
       userId: raw.userId,
       text: raw.text
     }
+    //3. Enviar o dto como body do post
     this.tweetService.postNewTweet(dto).subscribe({
       next:(res) => console.log(res),
       error:(err) => console.error(err)
     })
-
+    this.postNewTweetForm.reset();
   }
   redirecionarPerfil(userId:bigint){
     this.router.navigate(['user/profile',userId])
