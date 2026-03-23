@@ -17,6 +17,10 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideAnimationsAsync(),
     providePrimeNG({
+      theme: {
+        preset: Aura,
+        options: { darkModeSelector: false }
+      }
     }),
     MessageService
   ]
