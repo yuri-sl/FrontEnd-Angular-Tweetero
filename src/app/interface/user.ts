@@ -1,5 +1,5 @@
-export interface User{
-    id?: bigint;
-    username:String;
-    avatar:String;
+export interface User {
+  id?: bigint;
+  username: string;
+  avatar: string;
 }

@@ -1,7 +1,9 @@
-<header>
-    <div class="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-6 shadow-lg w-full">
-        <div class="text-3x1 font-bold text-center">
-            <h1>Tweetero Angular</h1>
-        </div>
-    </div>
-</header>
+<div class="flex h-screen w-screen bg-gray-50 overflow-hidden">
+  <div class="w-64 shrink-0">
+    <app-sidebar></app-sidebar>
+  </div>
+  <main class="flex-1 overflow-y-auto border-l border-gray-100 bg-white max-w-2xl">
+    <router-outlet></router-outlet>
+  </main>
+  <div class="flex-1 hidden xl:block"></div>
+</div>

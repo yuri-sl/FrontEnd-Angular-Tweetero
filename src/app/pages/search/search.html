@@ -1,0 +1,108 @@
+<div class="flex flex-col h-full">
+
+  <!-- Header + Search Bar -->
+  <section class="sticky top-0 z-10 bg-white/95 backdrop-blur border-b px-6 py-4">
+    <h1 class="text-xl font-bold text-gray-900 mb-3">Buscar</h1>
+
+    <form (ngSubmit)="buscar()" class="flex gap-2">
+      <input
+        [formControl]="searchControl"
+        class="flex-1 border border-gray-200 rounded-full px-4 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white transition-colors"
+        placeholder="Buscar usuários ou tweets..."
+      />
+      <p-button type="submit" icon="pi pi-search" [rounded]="true"></p-button>
+    </form>
+
+    <!-- Tabs -->
+    <div class="flex mt-3">
+      <button
+        (click)="mudarTab('usuarios')"
+        class="flex-1 py-2 font-medium border-b-2 transition-colors"
+        [class.border-blue-600]="activeTab === 'usuarios'"
+        [class.text-blue-600]="activeTab === 'usuarios'"
+        [class.border-transparent]="activeTab !== 'usuarios'"
+        [class.text-gray-400]="activeTab !== 'usuarios'">
+        Usuários
+      </button>
+      <button
+        (click)="mudarTab('tweets')"
+        class="flex-1 py-2 font-medium border-b-2 transition-colors"
+        [class.border-blue-600]="activeTab === 'tweets'"
+        [class.text-blue-600]="activeTab === 'tweets'"
+        [class.border-transparent]="activeTab !== 'tweets'"
+        [class.text-gray-400]="activeTab !== 'tweets'">
+        Tweets
+      </button>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <div class="flex-1 overflow-y-auto bg-white">
+
+    @if (activeTab === 'usuarios') {
+      @if (isSearchingUser) {
+        <div class="flex justify-center py-12">
+          <i class="pi pi-spin pi-spinner text-3xl text-blue-500"></i>
+        </div>
+      } @else if (foundUser) {
+        <div class="px-6 py-4 border-b hover:bg-gray-50 transition-colors flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <img [src]="foundUser.avatar" class="w-12 h-12 rounded-full object-cover" alt="avatar">
+            <div>
+              <h3 class="font-bold text-gray-900">{{ foundUser.username }}</h3>
+              <p class="text-sm text-gray-500">&#64;{{ foundUser.username }}</p>
+            </div>
+          </div>
+          <p-button label="Ver perfil" (click)="irParaPerfil(foundUser.id)" size="small"></p-button>
+        </div>
+      } @else if (userNotFound) {
+        <div class="flex flex-col items-center justify-center py-20 text-gray-400">
+          <i class="pi pi-user text-5xl mb-4"></i>
+          <p class="text-lg font-medium">Usuário não encontrado</p>
+          <p class="text-sm mt-1">Tente outro nome de usuário</p>
+        </div>
+      } @else {
+        <div class="flex flex-col items-center justify-center py-20 text-gray-400">
+          <i class="pi pi-search text-5xl mb-4"></i>
+          <p class="text-lg font-medium">Busque por um usuário</p>
+          <p class="text-sm mt-1">Digite o nome exato e pressione buscar</p>
+        </div>
+      }
+    }
+
+    @if (activeTab === 'tweets') {
+      @if (isLoadingTweets) {
+        <div class="flex justify-center py-12">
+          <i class="pi pi-spin pi-spinner text-3xl text-blue-500"></i>
+        </div>
+      } @else {
+        @for (tweet of filteredTweets; track tweet.id) {
+          <article class="border-b border-gray-100 px-6 py-4 hover:bg-gray-50 transition-colors">
+            <div class="flex gap-3">
+              <img [src]="tweet.user.avatar" class="w-10 h-10 rounded-full object-cover shrink-0" alt="avatar">
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between gap-2">
+                  <h3 class="font-bold text-gray-900 truncate">{{ tweet.user.username }}</h3>
+                  <button
+                    (click)="irParaPerfil(tweet.user.id)"
+                    class="text-sm text-blue-600 hover:text-blue-800 shrink-0 transition-colors">
+                    Ver perfil
+                  </button>
+                </div>
+                <p class="text-gray-700 mt-1">{{ tweet.text }}</p>
+              </div>
+            </div>
+          </article>
+        }
+        @empty {
+          <div class="flex flex-col items-center justify-center py-20 text-gray-400">
+            <i class="pi pi-inbox text-5xl mb-4"></i>
+            <p class="text-lg font-medium">Nenhum tweet encontrado</p>
+            <p class="text-sm mt-1">Tente outra palavra-chave</p>
+          </div>
+        }
+      }
+    }
+
+  </div>
+</div>

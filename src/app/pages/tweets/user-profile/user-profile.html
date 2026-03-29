@@ -1,5 +1,82 @@
-<h1>Perfil de usuário</h1>
-<div>
-    <h2>Username</h2>
-    <h3>Tweets</h3>
+<div class="flex flex-col h-full">
+
+  <!-- Header -->
+  <section class="sticky top-0 z-10 bg-white/95 backdrop-blur border-b px-6 py-4 flex items-center gap-4">
+    <button
+      (click)="voltar()"
+      class="p-2 rounded-full hover:bg-gray-100 transition-colors cursor-pointer">
+      <i class="pi pi-arrow-left text-lg"></i>
+    </button>
+    <div>
+      <h1 class="text-xl font-bold text-gray-900">{{ user?.username || 'Perfil' }}</h1>
+      <p class="text-sm text-gray-500">{{ tweets.length }} tweets</p>
+    </div>
+  </section>
+
+  @if (isLoading) {
+    <div class="flex justify-center items-center py-20">
+      <i class="pi pi-spin pi-spinner text-4xl text-blue-500"></i>
+    </div>
+  } @else {
+
+    <!-- Cover + Avatar -->
+    <div class="bg-linear-to-r from-blue-400 to-blue-600 h-32 relative shrink-0">
+      <div class="absolute -bottom-10 left-6">
+        @if (user?.avatar) {
+          <img
+            [src]="user!.avatar"
+            alt="avatar"
+            class="w-20 h-20 rounded-full border-4 border-white object-cover shadow-lg">
+        } @else {
+          <div class="w-20 h-20 rounded-full border-4 border-white bg-blue-200 flex items-center justify-center shadow-lg">
+            <i class="pi pi-user text-3xl text-blue-600"></i>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Profile Info -->
+    <div class="pt-14 px-6 pb-5 border-b bg-white">
+      <div class="flex items-start justify-between">
+        <div>
+          <h2 class="text-2xl font-bold text-gray-900">{{ user?.username || 'Usuário' }}</h2>
+          <p class="text-gray-500 text-sm mt-1">{{ tweets.length }} tweets publicados</p>
+        </div>
+        @if (isOwnProfile) {
+          <span class="text-xs bg-blue-100 text-blue-700 font-semibold px-3 py-1 rounded-full mt-1">
+            Seu perfil
+          </span>
+        }
+      </div>
+    </div>
+
+    <!-- Tweets List -->
+    <div class="flex-1 overflow-y-auto bg-white">
+      @for (tweet of tweets; track tweet.id) {
+        <article class="border-b border-gray-100 px-6 py-4 hover:bg-gray-50 transition-colors">
+          <div class="flex gap-3">
+            @if (user?.avatar) {
+              <img [src]="user!.avatar" class="w-10 h-10 rounded-full object-cover shrink-0" alt="avatar">
+            } @else {
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
+                <i class="pi pi-user text-blue-500"></i>
+              </div>
+            }
+            <div class="flex-1">
+              <h3 class="font-bold text-gray-900">{{ user?.username }}</h3>
+              <p class="text-gray-700 mt-1">{{ tweet.text }}</p>
+            </div>
+          </div>
+        </article>
+      }
+      @empty {
+        <div class="flex flex-col items-center justify-center py-20 text-gray-400">
+          <i class="pi pi-comment text-5xl mb-4"></i>
+          <p class="text-lg font-medium">Nenhum tweet ainda</p>
+          <p class="text-sm mt-1">Este usuário não publicou nada ainda</p>
+        </div>
+      }
+    </div>
+
+  }
 </div>

@@ -1,0 +1,65 @@
+<nav class="flex flex-col h-full py-6 px-4 bg-white border-r border-gray-200">
+
+  <!-- Logo -->
+  <div class="flex items-center gap-3 mb-8 px-2">
+    <img
+      src="https://drive.google.com/thumbnail?id=1H8gyTmXRY5g4lts_I6jKclpQDjNEMS4w&sz=w512"
+      alt="logo"
+      class="w-10 h-10 rounded-full object-cover">
+    <span class="text-xl font-bold text-blue-700">Tweetero</span>
+  </div>
+
+  <!-- Nav Links -->
+  <ul class="flex flex-col gap-1 flex-1">
+    <li>
+      <a
+        routerLink="/tweets"
+        routerLinkActive="active-nav"
+        class="nav-item flex items-center gap-4 px-4 py-3 rounded-full transition-colors">
+        <i class="pi pi-home text-xl w-6"></i>
+        <span class="font-medium text-lg">Início</span>
+      </a>
+    </li>
+    <li>
+      <a
+        routerLink="/buscar"
+        routerLinkActive="active-nav"
+        class="nav-item flex items-center gap-4 px-4 py-3 rounded-full transition-colors">
+        <i class="pi pi-search text-xl w-6"></i>
+        <span class="font-medium text-lg">Buscar</span>
+      </a>
+    </li>
+    <li>
+      <a
+        routerLink="/notificacoes"
+        routerLinkActive="active-nav"
+        class="nav-item flex items-center gap-4 px-4 py-3 rounded-full transition-colors">
+        <i class="pi pi-bell text-xl w-6"></i>
+        <span class="font-medium text-lg">Notificações</span>
+      </a>
+    </li>
+    <li>
+      <button
+        (click)="irParaPerfil()"
+        class="nav-item w-full flex items-center gap-4 px-4 py-3 rounded-full transition-colors text-left cursor-pointer">
+        <i class="pi pi-user text-xl w-6"></i>
+        <span class="font-medium text-lg">Perfil</span>
+      </button>
+    </li>
+  </ul>
+
+  <!-- User + Logout -->
+  <div class="mt-auto border-t border-gray-100 pt-4">
+    <div class="flex items-center gap-3 px-4 py-2 mb-1">
+      <i class="pi pi-at text-blue-500"></i>
+      <span class="text-sm font-semibold text-gray-700 truncate">{{ username }}</span>
+    </div>
+    <button
+      (click)="sair()"
+      class="w-full flex items-center gap-4 px-4 py-3 rounded-full hover:bg-red-50 text-red-500 transition-colors cursor-pointer">
+      <i class="pi pi-sign-out text-xl w-6"></i>
+      <span class="font-medium text-lg">Sair</span>
+    </button>
+  </div>
+
+</nav>

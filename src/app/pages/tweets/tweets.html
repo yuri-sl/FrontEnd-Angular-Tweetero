@@ -1,39 +1,64 @@
 <p-toast position="top-right"></p-toast>
-<div class="bg-gradient-to-r from-blue-300 to-blue-700 w-screen flex items-center justify-center h-screen">
-    <!--Feed Wrapper-->
-    <div class="w-7xl bg-white/95 shadow-xl mx-auto max-w-xl min-h-screen">
-        <!--Feed-->
-        <section class="sticky top-0 z-10 bg-white/90 backdrop-blur border-b px-4 py-3">
-            <h1 class="text-lg font-semibold">Últimas atualizações</h1>
-            <p class="text-sm text-gray-500">O que rolou recentemente</p>
-        </section>
-        <div class="top-3/6 h-screen bg-red-400">
-            @for (item of listaTweets; track $index) {
-                <!--Tweet-->
-                <article class="z-15 bg-white border border-solid border-gray-400 shadow-lg flex flex-row justify-center">
-                    <img [src]="item.user.avatar" class="avatar" alt="avatar">
-                    <div class="tweet-content">
-                        <header class="tweet-header">
-                            <h2 class="text-blue-700 font-bold">{{item.user.username}}</h2>
-                        </header>
-                        <p class="tweet-text">{{item.text}}</p>
-                    </div>
-                    <p-button class="bg-blue-400 rounded-md h-fit w-fit border border-solid b-2 shadow-lg text-white font-semibold hover: font-bold bg-blue-700" (click)="redirecionarPerfil(item.id)">
-                        Acessar perfil
-                    </p-button>
-                </article>
-            }
+
+<div class="flex flex-col h-full">
+
+  <!-- Header -->
+  <section class="sticky top-0 z-10 bg-white/95 backdrop-blur border-b px-6 py-4">
+    <h1 class="text-xl font-bold text-gray-900">Início</h1>
+    <p class="text-sm text-gray-500">O que está acontecendo?</p>
+  </section>
+
+  <!-- New Tweet Form -->
+  <div class="border-b border-gray-100 px-6 py-4 bg-white">
+    <form [formGroup]="postNewTweetForm" (ngSubmit)="postarTweet()" class="flex gap-3 items-end">
+      @if (savedUser?.avatar) {
+        <img [src]="savedUser!.avatar" class="w-10 h-10 rounded-full object-cover shrink-0 self-start mt-1" alt="avatar">
+      } @else {
+        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center shrink-0 self-start mt-1">
+          <i class="pi pi-user text-blue-500"></i>
         </div>
-        <div class="sticky z-10 bg-gray-300 flex flex-row bottom-0 justify-center items-center">
-            <form [formGroup]="postNewTweetForm" (ngSubmit)="postarTweet()">
-                <input 
-                 class="h-fit w-50 border border-solid border-black bg-white rounded-md shadow-2xl text-black font-semibold"
-                 type="text" 
-                 formControlName="text"
-                 >
-                <p-button class="gap-8" type="submit" label="Enviar" icon="pi pi-send"></p-button>
-            </form>
-        
+      }
+      <div class="flex-1 flex flex-col gap-2">
+        <textarea
+          formControlName="text"
+          class="w-full border border-gray-200 rounded-xl px-4 py-3 resize-none text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-400"
+          rows="2"
+          placeholder="O que está acontecendo?">
+        </textarea>
+        <div class="flex justify-end">
+          <p-button type="submit" label="Tweetar" icon="pi pi-send" [rounded]="true"></p-button>
         </div>
-    </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Tweet Feed -->
+  <div class="flex-1 overflow-y-auto">
+    @for (item of listaTweets; track item.id) {
+      <article class="border-b border-gray-100 px-6 py-4 hover:bg-gray-50 transition-colors bg-white">
+        <div class="flex gap-3">
+          <img [src]="item.user.avatar" class="w-11 h-11 rounded-full object-cover shrink-0" alt="avatar">
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-2">
+              <h2 class="font-bold text-gray-900 truncate">{{ item.user.username }}</h2>
+              <button
+                (click)="redirecionarPerfil(item.user.id)"
+                class="text-sm text-blue-600 hover:text-blue-800 font-medium shrink-0 transition-colors">
+                Ver perfil
+              </button>
+            </div>
+            <p class="text-gray-700 mt-1 wrap-break-word">{{ item.text }}</p>
+          </div>
+        </div>
+      </article>
+    }
+    @empty {
+      <div class="flex flex-col items-center justify-center py-20 text-gray-400">
+        <i class="pi pi-inbox text-5xl mb-4"></i>
+        <p class="text-lg font-medium">Nenhum tweet ainda</p>
+        <p class="text-sm mt-1">Seja o primeiro a postar!</p>
+      </div>
+    }
+  </div>
+
 </div>

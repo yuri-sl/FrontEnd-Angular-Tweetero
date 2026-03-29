@@ -1,0 +1,58 @@
+<div class="flex flex-col h-full">
+
+  <!-- Header -->
+  <section class="sticky top-0 z-10 bg-white/95 backdrop-blur border-b px-6 py-4">
+    <h1 class="text-xl font-bold text-gray-900">Notificações</h1>
+    <p class="text-sm text-gray-500">Atividade recente de outros usuários</p>
+  </section>
+
+  <!-- Content -->
+  <div class="flex-1 overflow-y-auto bg-white">
+
+    @if (isLoading) {
+      <div class="flex justify-center items-center py-20">
+        <i class="pi pi-spin pi-spinner text-4xl text-blue-500"></i>
+      </div>
+    } @else {
+
+      @for (tweet of recentActivity; track tweet.id) {
+        <div class="border-b border-gray-100 px-6 py-4 hover:bg-gray-50 transition-colors flex items-start gap-4">
+
+          <!-- Icon -->
+          <div class="bg-blue-100 rounded-full p-2 shrink-0 mt-1">
+            <i class="pi pi-comment text-blue-600 text-sm"></i>
+          </div>
+
+          <!-- Info -->
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-1">
+              <img
+                [src]="tweet.user.avatar"
+                class="w-6 h-6 rounded-full object-cover"
+                alt="avatar">
+              <span class="font-bold text-gray-900 text-sm">{{ tweet.user.username }}</span>
+              <span class="text-gray-500 text-sm">publicou um tweet</span>
+            </div>
+            <p class="text-gray-600 text-sm line-clamp-2">{{ tweet.text }}</p>
+            <button
+              (click)="irParaPerfil(tweet.user.id)"
+              class="text-xs text-blue-600 hover:text-blue-800 mt-2 font-medium transition-colors cursor-pointer">
+              Ver perfil →
+            </button>
+          </div>
+
+        </div>
+      }
+
+      @empty {
+        <div class="flex flex-col items-center justify-center py-20 text-gray-400">
+          <i class="pi pi-bell text-5xl mb-4"></i>
+          <p class="text-lg font-medium">Sem notificações</p>
+          <p class="text-sm mt-1">Não há atividade recente de outros usuários</p>
+        </div>
+      }
+
+    }
+  </div>
+
+</div>

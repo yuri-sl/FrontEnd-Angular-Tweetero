@@ -1,21 +1,21 @@
-import { Injectable } from "@angular/core";
-import { ApiService } from "./api.service";
-import { Observable } from "rxjs";
-import { CreateTweetDTO, GetTweetDTO } from "../../dto/tweet.dto";
+import { Injectable } from '@angular/core';
+import { ApiService } from './api.service';
+import { Observable } from 'rxjs';
+import { CreateTweetDTO, GetTweetDTO } from '../../dto/tweet.dto';
 
-@Injectable({providedIn: 'root'})
-export class TweetService{
-    constructor(private api:ApiService){}
+@Injectable({ providedIn: 'root' })
+export class TweetService {
+  constructor(private api: ApiService) {}
 
-    public postNewTweet(body:CreateTweetDTO):Observable<CreateTweetDTO>{
-        return this.api.post<CreateTweetDTO>('tweets',body);
-    }
+  public postNewTweet(body: CreateTweetDTO): Observable<CreateTweetDTO> {
+    return this.api.post<CreateTweetDTO>('tweets', body);
+  }
 
-    public getAllTweets():Observable<any>{
-        return this.api.get<GetTweetDTO[]>('tweets');
-    }
+  public getAllTweets(): Observable<GetTweetDTO[]> {
+    return this.api.get<GetTweetDTO[]>('tweets');
+  }
 
-    public getAllTweetsFromUser(userId:string):Observable<any>{
-        return this.api.get<GetTweetDTO[]>('tweets/user/'+userId)
-    }
+  public getAllTweetsFromUser(userId: string): Observable<GetTweetDTO[]> {
+    return this.api.get<GetTweetDTO[]>('tweets/user/' + userId);
+  }
 }
